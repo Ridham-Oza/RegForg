@@ -1,0 +1,32 @@
+# LangChain
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-ollama
+langchain-pinecone
+
+# Ollama
+ollama
+
+# Pinecone
+pinecone
+
+# PDF processing
+pypdf
+
+# Environment variables
+python-dotenv
+
+# Gradio UI
+gradio
+
+# Data / numerical processing
+numpy
+pandas
+
+# Performance monitoring
+psutil
+
+# Progress bar
+tqdm
