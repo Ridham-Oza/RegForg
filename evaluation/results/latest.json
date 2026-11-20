@@ -1,0 +1,917 @@
+{
+  "run_at": "2026-11-20T11:34:29+00:00",
+  "config": {
+    "top_k": 5,
+    "min_score": 0.5,
+    "generate": false,
+    "embedding_model": "qwen3-embedding:8b",
+    "llm_model": "qwen3:8b",
+    "n_answerable": 33,
+    "n_unanswerable": 8
+  },
+  "summary": {
+    "hit_at_k": 1.0,
+    "mrr": 0.9696969696969697,
+    "recall_at_k": 0.9464646464646465,
+    "refusal_rate": 1.0,
+    "false_refusal_rate": 0.0,
+    "retrieval_p50": 1.2992791670003498,
+    "retrieval_p95": 1.7953732080022746
+  },
+  "rows": [
+    {
+      "question": "What is machine learning?",
+      "answerable": true,
+      "relevant_pages": [
+        7
+      ],
+      "retrieved_pages": [
+        7,
+        3,
+        3,
+        3,
+        8
+      ],
+      "top_score": 0.7583,
+      "refused": false,
+      "retrieval_time": 1.289074583000911,
+      "generation_time": null,
+      "total_time": 1.289074583000911,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is supervised learning?",
+      "answerable": true,
+      "relevant_pages": [
+        7,
+        8
+      ],
+      "retrieved_pages": [
+        7,
+        9,
+        7,
+        8,
+        26
+      ],
+      "top_score": 0.7685,
+      "refused": false,
+      "retrieval_time": 1.1543865420026123,
+      "generation_time": null,
+      "total_time": 1.1543865420026123,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is unsupervised learning?",
+      "answerable": true,
+      "relevant_pages": [
+        8
+      ],
+      "retrieved_pages": [
+        8,
+        120,
+        7,
+        8,
+        101
+      ],
+      "top_score": 0.7939,
+      "refused": false,
+      "retrieval_time": 1.415526625001803,
+      "generation_time": null,
+      "total_time": 1.415526625001803,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is semi-supervised learning?",
+      "answerable": true,
+      "relevant_pages": [
+        8,
+        101,
+        102
+      ],
+      "retrieved_pages": [
+        8,
+        101,
+        8,
+        101,
+        7
+      ],
+      "top_score": 0.825,
+      "refused": false,
+      "retrieval_time": 1.1947726670005068,
+      "generation_time": null,
+      "total_time": 1.1947726670005068,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "question": "What is reinforcement learning?",
+      "answerable": true,
+      "relevant_pages": [
+        8,
+        151
+      ],
+      "retrieved_pages": [
+        8,
+        151,
+        8,
+        7,
+        3
+      ],
+      "top_score": 0.732,
+      "refused": false,
+      "retrieval_time": 1.131202790998941,
+      "generation_time": null,
+      "total_time": 1.131202790998941,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How does a support vector machine find its decision boundary?",
+      "answerable": true,
+      "relevant_pages": [
+        9,
+        10,
+        11,
+        38
+      ],
+      "retrieved_pages": [
+        11,
+        12,
+        11,
+        12,
+        10
+      ],
+      "top_score": 0.789,
+      "refused": false,
+      "retrieval_time": 1.06184154100265,
+      "generation_time": null,
+      "total_time": 1.06184154100265,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.5
+    },
+    {
+      "question": "What is the kernel trick?",
+      "answerable": true,
+      "relevant_pages": [
+        39,
+        40,
+        41
+      ],
+      "retrieved_pages": [
+        41,
+        41,
+        39,
+        40,
+        40
+      ],
+      "top_score": 0.8181,
+      "refused": false,
+      "retrieval_time": 0.9813257919995522,
+      "generation_time": null,
+      "total_time": 0.9813257919995522,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How is the linear regression problem solved?",
+      "answerable": true,
+      "relevant_pages": [
+        29,
+        30,
+        31
+      ],
+      "retrieved_pages": [
+        30,
+        29,
+        45,
+        49,
+        29
+      ],
+      "top_score": 0.7135,
+      "refused": false,
+      "retrieval_time": 1.2120024169998942,
+      "generation_time": null,
+      "total_time": 1.2120024169998942,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "question": "How does logistic regression work?",
+      "answerable": true,
+      "relevant_pages": [
+        32,
+        33,
+        34
+      ],
+      "retrieved_pages": [
+        34,
+        32,
+        34,
+        32,
+        33
+      ],
+      "top_score": 0.7376,
+      "refused": false,
+      "retrieval_time": 1.2992791670003498,
+      "generation_time": null,
+      "total_time": 1.2992791670003498,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How does decision tree learning choose a split?",
+      "answerable": true,
+      "relevant_pages": [
+        35,
+        36,
+        37
+      ],
+      "retrieved_pages": [
+        36,
+        36,
+        37,
+        37,
+        35
+      ],
+      "top_score": 0.8008,
+      "refused": false,
+      "retrieval_time": 1.2925775420007994,
+      "generation_time": null,
+      "total_time": 1.2925775420007994,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How does gradient descent work?",
+      "answerable": true,
+      "relevant_pages": [
+        45,
+        46,
+        47,
+        48,
+        49
+      ],
+      "retrieved_pages": [
+        47,
+        45,
+        47,
+        45,
+        48
+      ],
+      "top_score": 0.7793,
+      "refused": false,
+      "retrieval_time": 1.5512100419982744,
+      "generation_time": null,
+      "total_time": 1.5512100419982744,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6
+    },
+    {
+      "question": "What is one-hot encoding?",
+      "answerable": true,
+      "relevant_pages": [
+        54
+      ],
+      "retrieved_pages": [
+        54,
+        55,
+        59,
+        145,
+        55
+      ],
+      "top_score": 0.7322,
+      "refused": false,
+      "retrieval_time": 1.7953732080022746,
+      "generation_time": null,
+      "total_time": 1.7953732080022746,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is binning or bucketing of features?",
+      "answerable": true,
+      "relevant_pages": [
+        55
+      ],
+      "retrieved_pages": [
+        55,
+        55,
+        55,
+        54,
+        54
+      ],
+      "top_score": 0.8715,
+      "refused": false,
+      "retrieval_time": 1.3320982910008752,
+      "generation_time": null,
+      "total_time": 1.3320982910008752,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is the difference between normalization and standardization?",
+      "answerable": true,
+      "relevant_pages": [
+        56
+      ],
+      "retrieved_pages": [
+        56,
+        56,
+        57,
+        56,
+        23
+      ],
+      "top_score": 0.7982,
+      "refused": false,
+      "retrieval_time": 1.3236644579992571,
+      "generation_time": null,
+      "total_time": 1.3236644579992571,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How can missing feature values be handled?",
+      "answerable": true,
+      "relevant_pages": [
+        57
+      ],
+      "retrieved_pages": [
+        57,
+        58,
+        57,
+        58,
+        55
+      ],
+      "top_score": 0.8003,
+      "refused": false,
+      "retrieval_time": 1.4962574579985812,
+      "generation_time": null,
+      "total_time": 1.4962574579985812,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "Why do we split data into training, validation and test sets?",
+      "answerable": true,
+      "relevant_pages": [
+        61
+      ],
+      "retrieved_pages": [
+        61,
+        61,
+        71,
+        64,
+        12
+      ],
+      "top_score": 0.794,
+      "refused": false,
+      "retrieval_time": 1.1989650840005197,
+      "generation_time": null,
+      "total_time": 1.1989650840005197,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What are underfitting and overfitting?",
+      "answerable": true,
+      "relevant_pages": [
+        61,
+        62
+      ],
+      "retrieved_pages": [
+        62,
+        61,
+        63,
+        62,
+        62
+      ],
+      "top_score": 0.7926,
+      "refused": false,
+      "retrieval_time": 1.0231214170016756,
+      "generation_time": null,
+      "total_time": 1.0231214170016756,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How do L1 and L2 regularization differ?",
+      "answerable": true,
+      "relevant_pages": [
+        63
+      ],
+      "retrieved_pages": [
+        63,
+        64,
+        63,
+        64,
+        112
+      ],
+      "top_score": 0.8079,
+      "refused": false,
+      "retrieval_time": 0.990421750000678,
+      "generation_time": null,
+      "total_time": 0.990421750000678,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is a confusion matrix?",
+      "answerable": true,
+      "relevant_pages": [
+        65
+      ],
+      "retrieved_pages": [
+        65,
+        65,
+        66,
+        67,
+        66
+      ],
+      "top_score": 0.7675,
+      "refused": false,
+      "retrieval_time": 1.0195076660020277,
+      "generation_time": null,
+      "total_time": 1.0195076660020277,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What does the area under the ROC curve measure?",
+      "answerable": true,
+      "relevant_pages": [
+        67,
+        68
+      ],
+      "retrieved_pages": [
+        67,
+        69,
+        69,
+        68,
+        65
+      ],
+      "top_score": 0.7689,
+      "refused": false,
+      "retrieval_time": 1.2226253330009058,
+      "generation_time": null,
+      "total_time": 1.2226253330009058,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How does cross-validation work?",
+      "answerable": true,
+      "relevant_pages": [
+        71
+      ],
+      "retrieved_pages": [
+        71,
+        71,
+        122,
+        64,
+        94
+      ],
+      "top_score": 0.7519,
+      "refused": false,
+      "retrieval_time": 1.1735667079992709,
+      "generation_time": null,
+      "total_time": 1.1735667079992709,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How does a convolutional neural network process images?",
+      "answerable": true,
+      "relevant_pages": [
+        78,
+        79,
+        80,
+        81
+      ],
+      "retrieved_pages": [
+        80,
+        81,
+        79,
+        78,
+        80
+      ],
+      "top_score": 0.7652,
+      "refused": false,
+      "retrieval_time": 1.3747052079997957,
+      "generation_time": null,
+      "total_time": 1.3747052079997957,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is a recurrent neural network used for?",
+      "answerable": true,
+      "relevant_pages": [
+        82,
+        83,
+        84,
+        85,
+        86
+      ],
+      "retrieved_pages": [
+        82,
+        85,
+        82,
+        83,
+        84
+      ],
+      "top_score": 0.7534,
+      "refused": false,
+      "retrieval_time": 1.3134866250002233,
+      "generation_time": null,
+      "total_time": 1.3134866250002233,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.8
+    },
+    {
+      "question": "How does a random forest work?",
+      "answerable": true,
+      "relevant_pages": [
+        94
+      ],
+      "retrieved_pages": [
+        94,
+        94,
+        94,
+        36,
+        97
+      ],
+      "top_score": 0.8087,
+      "refused": false,
+      "retrieval_time": 1.2894230830024753,
+      "generation_time": null,
+      "total_time": 1.2894230830024753,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is gradient boosting?",
+      "answerable": true,
+      "relevant_pages": [
+        95,
+        96
+      ],
+      "retrieved_pages": [
+        95,
+        96,
+        97,
+        96,
+        95
+      ],
+      "top_score": 0.7933,
+      "refused": false,
+      "retrieval_time": 1.1787990829980117,
+      "generation_time": null,
+      "total_time": 1.1787990829980117,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is active learning?",
+      "answerable": true,
+      "relevant_pages": [
+        100
+      ],
+      "retrieved_pages": [
+        100,
+        101,
+        101,
+        8,
+        13
+      ],
+      "top_score": 0.7236,
+      "refused": false,
+      "retrieval_time": 1.2506249159996514,
+      "generation_time": null,
+      "total_time": 1.2506249159996514,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How can you handle imbalanced datasets?",
+      "answerable": true,
+      "relevant_pages": [
+        109
+      ],
+      "retrieved_pages": [
+        109,
+        110,
+        110,
+        109,
+        110
+      ],
+      "top_score": 0.7849,
+      "refused": false,
+      "retrieval_time": 1.30917591600155,
+      "generation_time": null,
+      "total_time": 1.30917591600155,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is transfer learning?",
+      "answerable": true,
+      "relevant_pages": [
+        114
+      ],
+      "retrieved_pages": [
+        115,
+        114,
+        115,
+        115,
+        114
+      ],
+      "top_score": 0.7874,
+      "refused": false,
+      "retrieval_time": 1.2663222500013944,
+      "generation_time": null,
+      "total_time": 1.2663222500013944,
+      "hit": 1.0,
+      "mrr": 0.5,
+      "recall": 1.0
+    },
+    {
+      "question": "How does the k-means clustering algorithm work?",
+      "answerable": true,
+      "relevant_pages": [
+        122,
+        123
+      ],
+      "retrieved_pages": [
+        123,
+        124,
+        122,
+        125,
+        130
+      ],
+      "top_score": 0.7989,
+      "refused": false,
+      "retrieval_time": 1.5009072920001927,
+      "generation_time": null,
+      "total_time": 1.5009072920001927,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is DBSCAN?",
+      "answerable": true,
+      "relevant_pages": [
+        124
+      ],
+      "retrieved_pages": [
+        124,
+        124,
+        124,
+        127,
+        125
+      ],
+      "top_score": 0.7943,
+      "refused": false,
+      "retrieval_time": 1.001190167000459,
+      "generation_time": null,
+      "total_time": 1.001190167000459,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is principal component analysis?",
+      "answerable": true,
+      "relevant_pages": [
+        131
+      ],
+      "retrieved_pages": [
+        132,
+        131,
+        131,
+        132,
+        131
+      ],
+      "top_score": 0.8191,
+      "refused": false,
+      "retrieval_time": 1.354244041001948,
+      "generation_time": null,
+      "total_time": 1.354244041001948,
+      "hit": 1.0,
+      "mrr": 0.5,
+      "recall": 1.0
+    },
+    {
+      "question": "What is learning to rank?",
+      "answerable": true,
+      "relevant_pages": [
+        138,
+        139,
+        140
+      ],
+      "retrieved_pages": [
+        138,
+        139,
+        139,
+        139,
+        140
+      ],
+      "top_score": 0.8843,
+      "refused": false,
+      "retrieval_time": 1.3254707499982032,
+      "generation_time": null,
+      "total_time": 1.3254707499982032,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is Bayes' rule?",
+      "answerable": true,
+      "relevant_pages": [
+        24
+      ],
+      "retrieved_pages": [
+        24,
+        24,
+        128,
+        25,
+        23
+      ],
+      "top_score": 0.7462,
+      "refused": false,
+      "retrieval_time": 1.2059185409998463,
+      "generation_time": null,
+      "total_time": 1.2059185409998463,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is the capital of France?",
+      "answerable": false,
+      "relevant_pages": [],
+      "retrieved_pages": [
+        8,
+        54,
+        400,
+        70,
+        942
+      ],
+      "top_score": 0.2491,
+      "refused": true,
+      "retrieval_time": 1.5183492090000072,
+      "generation_time": null,
+      "total_time": 1.5183492090000072
+    },
+    {
+      "question": "How do I bake sourdough bread?",
+      "answerable": false,
+      "relevant_pages": [],
+      "retrieved_pages": [
+        447,
+        877,
+        48,
+        8,
+        870
+      ],
+      "top_score": 0.3778,
+      "refused": true,
+      "retrieval_time": 1.6551169590020436,
+      "generation_time": null,
+      "total_time": 1.6551169590020436
+    },
+    {
+      "question": "Who won the 2018 FIFA World Cup?",
+      "answerable": false,
+      "relevant_pages": [],
+      "retrieved_pages": [
+        64,
+        8,
+        54,
+        58,
+        40
+      ],
+      "top_score": 0.2132,
+      "refused": true,
+      "retrieval_time": 1.5765650409994123,
+      "generation_time": null,
+      "total_time": 1.5765650409994123
+    },
+    {
+      "question": "Who is the current CEO of Microsoft?",
+      "answerable": false,
+      "relevant_pages": [],
+      "retrieved_pages": [
+        63,
+        59,
+        65,
+        84,
+        719
+      ],
+      "top_score": 0.2277,
+      "refused": true,
+      "retrieval_time": 1.7663245830008236,
+      "generation_time": null,
+      "total_time": 1.7663245830008236
+    },
+    {
+      "question": "What is the boiling point of water in Kelvin?",
+      "answerable": false,
+      "relevant_pages": [],
+      "retrieved_pages": [
+        192,
+        179,
+        176,
+        182,
+        193
+      ],
+      "top_score": 0.284,
+      "refused": true,
+      "retrieval_time": 1.4979436670000723,
+      "generation_time": null,
+      "total_time": 1.4979436670000723
+    },
+    {
+      "question": "How do I configure a Kubernetes ingress controller?",
+      "answerable": false,
+      "relevant_pages": [],
+      "retrieved_pages": [
+        48,
+        1147,
+        30,
+        74,
+        48
+      ],
+      "top_score": 0.4393,
+      "refused": true,
+      "retrieval_time": 3.4684724580001784,
+      "generation_time": null,
+      "total_time": 3.4684724580001784
+    },
+    {
+      "question": "What is today's stock price of Apple?",
+      "answerable": false,
+      "relevant_pages": [],
+      "retrieved_pages": [
+        48,
+        8,
+        58,
+        48,
+        256
+      ],
+      "top_score": 0.3229,
+      "refused": true,
+      "retrieval_time": 3.043464500002301,
+      "generation_time": null,
+      "total_time": 3.043464500002301
+    },
+    {
+      "question": "What is the GDP of India?",
+      "answerable": false,
+      "relevant_pages": [],
+      "retrieved_pages": [
+        37,
+        48,
+        47,
+        58,
+        76
+      ],
+      "top_score": 0.2624,
+      "refused": true,
+      "retrieval_time": 1.6566434999986086,
+      "generation_time": null,
+      "total_time": 1.6566434999986086
+    }
+  ]
+}

@@ -1,589 +1,256 @@
-### RegForg : (RAG => OLLAMA + LangChain + Pinecone + FastApi).
+# RegForg
 
-An END-to-End RAG pipline for building a private, local knowledgebase system using PDF DOCUMENTS, OLLAMA-QWEN3-embedding-8B, Lnagchain, Pinecone.
+**A private, fully local RAG system with an interactive evaluation dashboard.**
+Ask questions about your own PDFs: every answer is grounded in your documents, cited down to the page, and off-topic questions are refused instead of hallucinated.
 
-### ////////----PROJECT OVERVIEW----///////
+`Ollama` · `Qwen3-Embedding 8B` · `Qwen3 8B` · `Pinecone` · `LangChain` · `Gradio 6`
 
-This project implements a local Retrieval-Augmented Generation (RAG) pipeline that allows an AI application to search and retrieve relevant information from private documents.
+---
 
-Instead of sending documents to an external embedding API, this project uses Ollama to run the embedding model locally.
+## Demo
 
-The current pipeline uses:
-Python — Core programming language
-LangChain — Document processing and retrieval framework
-PDFLoader — PDF document ingestion
-RecursiveCharacterTextSplitter — Document chunking
-Ollama — Local model execution
-Qwen3 Embedding 8B — Local embedding model
-Pinecone — Persistent vector database
-Vector Similarity Search — Semantic retrieval
+<!--
+  VIDEO: drag-and-drop an .mp4 (≤10 MB) into this README while editing it on GitHub.
+  GitHub uploads it and inserts a link like the one below; replace the placeholder with it.
+-->
 
-The embedding model generates 4096-dimensional vectors, which are stored in Pinecone DataBase and later used to retrieve documents relevant to a user's query.
+https://github.com/user-attachments/assets/REPLACE-WITH-YOUR-VIDEO-ID
 
+<!--
+  SCREENSHOTS: save PNGs into docs/images/ using these names, and they will appear below.
+-->
 
-### ////////----PROJECT STRUCTURE----///////
+| Ask: streaming, cited answers | Retrieval Inspector |
+|---|---|
+| ![Ask tab](docs/images/ask.png) | ![Retrieval inspector](docs/images/inspector.png) |
+| **Evaluation** | **Monitoring** |
+| ![Evaluation tab](docs/images/evaluation.png) | ![Monitoring tab](docs/images/monitoring.png) |
 
-RegForg/
-│
-├── Data/
-│   └── documents/
-│       └── MachineLearning-3.pdf
-│
-├── evaluation/
-│   ├── evaluate_retrieval.py
-│   └── test_questions.py
-│
-├── src/
-│   ├── embeddings/
-│   │   └── ollama_embeddings.py
-│   ├── generation/
-│   │   └── llm.py
-│   ├── ingestion/
-│   │   ├── loader.py
-│   │   ├── chunker.py
-│   │   └── indexer.py
-│   ├── pipeline/
-│   │   └── rag_pipeline.py
-│   ├── retrieval/
-│   │   └── retriever.py
-│   ├── ui/
-│   │   └── gradio_app.py
-│   └── utils/
-│       ├── logger.py
-│       └── metrics.py
-│
-├── config.py
-├── .env
-├── .gitignore
-├── requirements.txt
-└── README.md
+![Knowledge base tab](docs/images/knowledge-base.png)
 
+---
+
+## Highlights
+
+- **Runs locally.** Embeddings and generation run on your machine through Ollama; only vectors and chunk text are stored in Pinecone.
+- **Cites its sources.** Answers reference `[1]`, `[2]`…, and each source card links to the exact PDF page.
+- **Refuses what it can't answer.** A calibrated relevance gate refuses off-topic questions in under a second without calling the LLM.
+- **Streams answers.** Tokens arrive as they are generated, and each stage's latency is shown per answer.
+- **Measured quality.** A 41-question evaluation set (in-scope and out-of-scope) runs from the CLI or the dashboard.
+- **Idempotent indexing.** Deterministic chunk IDs, so re-running never duplicates vectors and unchanged files are skipped.
+
+## Results
+
+Evaluation on *The Hundred-Page Machine Learning Book* (152 pages, 353 chunks): 33 in-scope questions labelled with the pages that answer them, plus 8 out-of-scope questions.
+
+| Metric | v1 | **v2 (this version)** |
+|---|---|---|
+| Hit@5 | 1.00 ¹ | **1.00** |
+| MRR | 0.97 ¹ | **0.97** |
+| Recall@5 | 0.93 ¹ | **0.95** |
+| Out-of-scope questions refused | 0 % | **100 %** |
+| In-scope questions wrongly refused | 0 % | **0 %** |
+| Answers with a valid citation | — (no citations) | **100 %** |
+| Retrieval latency, p50 | 4.4 s | **≈ 0.7 s** |
+| Generation latency, same answer | ≈ 15 s | **≈ 2.3 s** |
+| End-to-end, full cited answer, p50 | — | 9–11 s (first token ≈ 3 s, streamed) |
+
+¹ v1's own 4-question set reported 1.00 on everything. These v1 numbers are from re-running v1's index on the new 41-question set.
+
+Latency was measured on Apple Silicon with 32 GB RAM, with Pinecone in `us-east-1`. Yours will differ.
+
+The biggest wins came from fixing the process, not from swapping models: a relevance gate, turning off Qwen3's hidden "thinking" mode, caching clients instead of rebuilding them on every question, and cleaner chunks. See **[docs/PROJECT_ANALYSIS.md](docs/PROJECT_ANALYSIS.md)** for every gap found, the evidence, and the ideas that were tested and rejected.
+
+---
 
 ## Architecture
 
-```text
-PDF
- ↓
-Document Loader
- ↓
-Chunking + Cleaning
- ↓
-Qwen3-Embedding 8B
- ↓
-4096-dimensional vectors
- ↓
-Pinecone
- ↓
-Semantic Retrieval
- ↓
-Top-K Context
- ↓
-Qwen3 8B
- ↓
-Grounded Answer
- ↓
-Gradio UI
+```mermaid
+flowchart LR
+    subgraph Ingestion["Ingestion (python -m src.ingestion.indexer)"]
+        A[PDF / TXT / MD] --> B[Load pages<br/>1-based page numbers]
+        B --> C[Clean<br/>NFKC · glyph repair ·<br/>header/footer removal]
+        C --> D[Chunk 1000/150<br/>deterministic IDs]
+        D --> E[Qwen3-Embedding 8B<br/>batched, 4096-d]
+        E --> F[(Pinecone)]
+    end
+
+    subgraph Query["Query (dashboard / CLI)"]
+        Q[Question] --> QE[Embed query]
+        QE --> F
+        F --> R[Top-K chunks]
+        R --> G{Top score ≥<br/>threshold?}
+        G -- no --> X[Refuse instantly<br/>no LLM call]
+        G -- yes --> L[Qwen3 8B<br/>numbered sources, thinking off]
+        L --> S[Streamed answer<br/>with citations]
+    end
+
+    S --> M[(logs/queries.jsonl)]
+    X --> M
 ```
 
-## Tech Stack
+## Dashboard
 
-| Component | Technology |
+`python app.py` → <http://127.0.0.1:7860>
+
+| Tab | What you can do |
 |---|---|
-| Language | Python |
-| Embeddings | Qwen3-Embedding 8B |
-| Generation | Qwen3 8B |
-| Local inference | Ollama |
-| Vector database | Pinecone |
-| Retrieval | Cosine similarity |
-| Frontend | Gradio |
-| Evaluation | Recall@K, Hit@K, MRR, similarity, latency |
+| **Ask** | Chat with your documents. Answers stream in with `[n]` citations; cited sources are highlighted and link to the PDF page. Per-answer cards show status, top score, retrieval (embed + search), time to first token, generation and total time. Top-K and threshold can be tuned live. |
+| **Retrieval Inspector** | See exactly which chunks come back for a query, their scores, and which pass the threshold, without calling the LLM. |
+| **Evaluation** | Run the evaluation set with any Top-K and threshold, optionally including generation. Shows metric cards, a score chart separating in-scope from out-of-scope questions, and a per-question table. |
+| **Monitoring** | Every question asked is logged: p50/p95 latency, refusal rate, latency by stage over time, and full history. |
+| **Knowledge Base** | Health checks (Ollama, models, Pinecone), the indexed documents, upload and index a new file, re-sync the folder, or remove a document. |
 
 ---
 
-# Step 1 — Prerequisites
+## Quick start
 
-Install:
+### 1. Prerequisites
 
 - Python 3.12
-- Ollama
-- Git
-- Pinecone account/API key
+- [Ollama](https://ollama.com)
+- A [Pinecone](https://www.pinecone.io) API key (the free tier is enough)
 
-Check Python:
-
-```bash
-python3 --version
-```
-
-Check Ollama:
+### 2. Install
 
 ```bash
-ollama --version
-```
-
----
-
-# Step 2 — Clone the Repository
-
-```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/Ridham-Oza/RegForg.git
 cd RegForg
-```
-
-If you already have the project:
-
-```bash
-cd RegForg
-```
-
----
-
-# Step 3 — Create Virtual Environment
-
-```bash
 python3 -m venv .venv
-```
-
-Activate:
-
-```bash
 source .venv/bin/activate
-```
-
-Upgrade pip:
-
-```bash
-python -m pip install --upgrade pip
-```
-
----
-
-# Step 4 — Install Dependencies
-
-If `requirements.txt` exists:
-
-```bash
 pip install -r requirements.txt
 ```
 
-Otherwise:
+### 3. Pull the models
 
 ```bash
-pip install langchain langchain-community langchain-core
-pip install langchain-ollama langchain-text-splitters
-pip install pinecone ollama gradio pypdf python-dotenv
-```
-
----
-
-# Step 5 — Start Ollama
-
-Check the Ollama API:
-
-```bash
-curl http://localhost:11434/api/tags
-```
-
-Pull the required models:
-
-```bash
+ollama serve          # skip if the Ollama app is already running
 ollama pull qwen3-embedding:8b
 ollama pull qwen3:8b
 ```
 
-Verify:
+### 4. Configure
 
 ```bash
-ollama list
+cp .env.example .env
+# set PINECONE_API_KEY in .env
 ```
 
-You should see:
+### 5. Add documents and index them
+
+```bash
+cp ~/path/to/your.pdf Data/documents/
+python -m src.ingestion.indexer           # creates the index on first run
+```
+
+Re-running only re-indexes files that changed. To start from scratch, run `python -m src.ingestion.indexer --rebuild`.
+
+### 6. Launch the dashboard
+
+```bash
+python app.py
+```
+
+---
+
+## Command line
+
+| Command | Purpose |
+|---|---|
+| `python -m src.ingestion.chunker` | Preview chunking and detected boilerplate |
+| `python -m src.ingestion.indexer [--rebuild]` | Index `Data/documents/` |
+| `python -m src.retrieval.retriever` | Retrieval smoke test |
+| `python -m src.pipeline.rag_pipeline "your question"` | Ask a question in the terminal (streams) |
+| `python -m evaluation.evaluate [--generate] [--top-k 5] [--threshold 0.5]` | Run the evaluation |
+| `pytest` | Run the 14 offline unit tests (no Ollama or Pinecone needed) |
+
+## Evaluation
+
+The evaluation set lives in [`evaluation/dataset.json`](evaluation/dataset.json). Relevant pages were labelled from the book's section headings, not from retriever output, so the evaluation does not grade itself.
+
+| Metric | Meaning |
+|---|---|
+| **Hit@K** | A relevant page appears in the top K |
+| **MRR** | 1 / rank of the first relevant page, averaged |
+| **Recall@K** | Share of the relevant pages that were retrieved |
+| **Out-of-scope refused** | Off-topic questions correctly refused |
+| **False refusals** | In-scope questions wrongly refused |
+| **Citation rate** | Answered questions whose answer cites a valid source (`--generate`) |
+| **p50 / p95 latency** | Retrieval, generation and end-to-end, per question |
+
+Removed from v1: *average similarity* (depends on the model, not on quality), *end-to-end retrieval latency* (measured the same span as retrieval latency), and *chunks used* (always equal to K).
+
+To evaluate your own documents, replace the items in `dataset.json` with your questions and the 1-based pages that answer them.
+
+## Configuration
+
+Every setting can be overridden in `.env` (see [`.env.example`](.env.example)).
+
+| Variable | Default | Notes |
+|---|---|---|
+| `PINECONE_API_KEY` | — | required |
+| `PINECONE_INDEX_NAME` / `PINECONE_NAMESPACE` | `regforg` / `regforg` | |
+| `EMBEDDING_MODEL` | `qwen3-embedding:8b` | 4096-d; change `PINECONE_DIMENSION` if you switch models |
+| `LLM_MODEL` | `qwen3:8b` | any Ollama chat model |
+| `LLM_THINKING` | `false` | `true` re-enables Qwen3 reasoning (~6× slower) |
+| `TOP_K` | `5` | chunks retrieved per question |
+| `RELEVANCE_THRESHOLD` | `0.50` | refuse when no chunk scores above this; tune it in the Evaluation tab |
+| `CHUNK_SIZE` / `CHUNK_OVERLAP` | `1000` / `150` | characters; re-index after changing |
+| `OLLAMA_KEEP_ALIVE_SECONDS` | `1800` | keeps models loaded between questions |
+| `GRADIO_SERVER_PORT` | `7860` | |
+
+## Project structure
 
 ```text
-qwen3:8b
-qwen3-embedding:8b
+RegForg/
+├── app.py                        # dashboard entry point
+├── config.py                     # all settings (read from .env)
+├── requirements.txt
+├── .env.example
+├── Data/documents/               # your documents (git-ignored)
+├── src/
+│   ├── ingestion/
+│   │   ├── loader.py             # PDF/TXT/MD → pages
+│   │   ├── chunker.py            # cleaning, chunking, deterministic IDs
+│   │   └── indexer.py            # idempotent Pinecone sync
+│   ├── embeddings/ollama_embeddings.py
+│   ├── retrieval/retriever.py    # dense retrieval + relevance gate
+│   ├── generation/llm.py         # cited, streamed answers
+│   ├── pipeline/rag_pipeline.py  # the one pipeline used everywhere
+│   ├── dashboard/app.py          # Gradio dashboard (5 tabs)
+│   └── utils/                    # logger, query log
+├── evaluation/
+│   ├── dataset.json              # 41 labelled questions
+│   ├── metrics.py
+│   ├── evaluate.py
+│   └── results/latest.json       # last run, shown in the dashboard
+├── tests/                        # offline unit tests
+└── docs/
+    ├── PROJECT_ANALYSIS.md       # gap analysis and design decisions
+    └── images/                   # screenshots for this README
 ```
 
----
-
-# Step 6 — Configure `.env`
-
-Create:
-
-```bash
-touch .env
-```
-
-Example:
-
-```env
-PINECONE_API_KEY=your_pinecone_api_key
-PINECONE_INDEX_NAME=regforg
-PINECONE_NAMESPACE=regforg
-PINECONE_DIMENSION=4096
-PINECONE_CLOUD=aws
-PINECONE_REGION=us-east-1
-```
-
-If your `config.py` defines model variables, configure them there or in `.env` according to your implementation:
-
-```env
-EMBEDDING_MODEL=qwen3-embedding:8b
-LLM_MODEL=qwen3:8b
-TOP_K=5
-```
-
-Never commit `.env`.
-
----
-
-# Step 7 — Add the PDF
-
-Put your document here:
-
-```text
-Data/documents/
-```
-
-Example:
-
-```text
-Data/documents/MachineLearning-3.pdf
-```
-
----
-
-# Step 8 — Test Embeddings
-
-```bash
-python -c 'from src.embeddings.ollama_embeddings import QwenEmbeddings; e=QwenEmbeddings(); v=e.embed_query("What is machine learning?"); print("Embedding successful:", len(v)==4096); print("Dimension:", len(v)); print("First 10:", v[:10])'
-```
-
-Expected:
-
-```text
-Embedding successful: True
-Dimension: 4096
-```
-
----
-
-# Step 9 — Test Chunking
-
-```bash
-python -m src.ingestion.chunker
-```
-
-The current project produced:
-
-```text
-Pages loaded: 152
-Chunks created: 374
-
-```
-
-
-The chunking stage also removes unwanted short/header-only PDF chunks.
-
----
-
-# Step 10 — Index the PDF
-
-If you are re-indexing after changing chunking, first remove the old namespace vectors:
-
-```bash
-python -c 'from pinecone import Pinecone; from config import PINECONE_API_KEY,PINECONE_INDEX_NAME,PINECONE_NAMESPACE; pc=Pinecone(api_key=PINECONE_API_KEY); index=pc.Index(PINECONE_INDEX_NAME); print("Before:",index.describe_index_stats()); index.delete(delete_all=True,namespace=PINECONE_NAMESPACE); print("Old vectors deleted."); print("After:",index.describe_index_stats())'
-```
-
-Then:
-
-```bash
-python -m src.ingestion.indexer
-```
-
-Completed project result:
-
-```text
-Chunks indexed: 374
-```
-
----
-
-# Step 11 — Verify Pinecone
-
-```bash
-python -c 'from pinecone import Pinecone; from config import PINECONE_API_KEY,PINECONE_INDEX_NAME; pc=Pinecone(api_key=PINECONE_API_KEY); index=pc.Index(PINECONE_INDEX_NAME); print(index.describe_index_stats())'
-```
-
-The namespace should contain the indexed vectors.
-
----
-
-# Step 12 — Test Retrieval
-
-```bash
-python -m src.retrieval.retriever
-```
-
-Or:
-
-```bash
-python -c 'from src.retrieval.retriever import PineconeRetriever; r=PineconeRetriever(top_k=5); result=r.retrieve("What is machine learning?"); print("Retrieved:",len(result["matches"])); print("Retrieval time:",round(result["retrieval_time"],4),"sec"); [(print(i+1, "Score:",round(m["score"],6),"Page:",m["page"])) for i,m in enumerate(result["matches"])]'
-```
-
-The retriever returns:
-
-```text
-matches
-embedding_time
-pinecone_time
-retrieval_time
-top_k
-```
-
----
-
-# Step 13 — Test LLM Generation
-
-```bash
-python -m src.generation.llm
-```
-
-This performs:
-
-```text
-Question
- ↓
-Qwen Embedding
- ↓
-Pinecone Retrieval
- ↓
-Context
- ↓
-Qwen3 8B
- ↓
-Answer
-```
-
----
-
-# Step 14 — Run the Complete RAG Pipeline
-
-```bash
-python -m src.pipeline.rag_pipeline
-```
-
-The pipeline returns:
-
-```text
-answer
-documents
-retrieval_time
-generation_time
-total_time
-num_chunks
-```
-
----
-
-# Step 15 — Run Retrieval Evaluation
-
-```bash
-python -m evaluation.evaluate_retrieval
-```
-
-The project evaluates:
-
-1. Recall@5
-2. Hit@5
-3. MRR
-4. Average similarity
-5. Average retrieval latency
-6. Average end-to-end retrieval latency
-
-## Recorded Evaluation
-
-```text
-Recall@5              : 1.0000
-Hit@5                 : 1.0000
-MRR                   : 1.0000
-Average similarity    : 0.7201
-Average retrieval     : 1.7314 sec
-Average end-to-end    : 1.7317 sec
-```
-
-These results depend on the evaluation dataset, document, models, and runtime environment.
-
----
-
-# Step 16 — Start the Gradio Frontend
-
-```bash
-python -m src.ui.gradio_app
-```
-
-Open:
-
-```text
-http://127.0.0.1:7860
-```
-
-If port 7860 is busy:
-
-```bash
-GRADIO_SERVER_PORT=7861 python -m src.ui.gradio_app
-```
-
-Then open:
-
-```text
-http://127.0.0.1:7861
-```
-
----
----
-
-# Troubleshooting
-
-## 1. Ollama connection error
-
-```text
-Failed to connect to Ollama
-```
-
-Check:
-
-```bash
-ollama list
-```
-
-and:
-
-```bash
-curl http://localhost:11434/api/tags
-```
-
----
-
-## 2. Model not found
-
-```bash
-ollama pull qwen3:8b
-ollama pull qwen3-embedding:8b
-```
-
----
-
-## 3. Embedding dimension mismatch
-
-The current embedding model returns:
-
-```text
-4096
-```
-
-Therefore Pinecone must be configured as:
-
-```env
-PINECONE_DIMENSION=4096
-```
-
----
-
-
-## 4. Gradio port error
-
-If 7860 is already occupied:
-
-```bash
-GRADIO_SERVER_PORT=7861 python -m src.ui.gradio_app
-```
-
----
-
-# RAG Evaluation Metrics
-
-## Recall@K
-
-Measures the proportion of relevant results retrieved in the top K.
-
-```text
-Recall@K =
-relevant retrieved /
-total relevant
-```
-
-## Hit@K
-
-Returns 1 when at least one relevant result appears in the top K.
-
-## MRR
-
-Measures how highly the first relevant result appears:
-
-```text
-MRR = 1 / rank
-```
-
-## Average Similarity
-
-Average semantic similarity of retrieved chunks.
-
-## Retrieval Latency
-
-Time spent retrieving relevant chunks.
-
-## End-to-End Latency
-
-Total retrieval-side request duration.
-
----
-
-# What This Project Demonstrates
-
-- Retrieval-Augmented Generation
-- Semantic search
-- Embeddings
-- Vector databases
-- Local LLM inference
-- PDF processing
-- Context construction
-- Retrieval evaluation
-- Latency measurement
-- Gradio application development
-- Modular Python architecture
-
----
-
-# Quick Start
-
-Once everything has already been configured:
-
-```bash
-cd RegForg
-source .venv/bin/activate
-
-ollama list
-
-python -m src.retrieval.retriever
-python -m src.pipeline.rag_pipeline
-python -m evaluation.evaluate_retrieval
-python -m src.ui.gradio_app
-```
-
-Open:
-
-```text
-http://127.0.0.1:7860
-```
-
----
+## Troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| `Ollama server not reachable` in Knowledge Base | Run `ollama serve`, or start the Ollama app |
+| `model … not found` | `ollama pull qwen3-embedding:8b && ollama pull qwen3:8b` |
+| `Embedding dimension … does not match` | Set `PINECONE_DIMENSION` to your embedding model's size and use a new index name |
+| Good questions get refused | Lower `RELEVANCE_THRESHOLD`; use the Retrieval Inspector to see the scores |
+| Off-topic questions get answered | Raise `RELEVANCE_THRESHOLD` |
+| First answer after a pause is slow | The model is reloading; increase `OLLAMA_KEEP_ALIVE_SECONDS` |
+| Port 7860 in use | `GRADIO_SERVER_PORT=7861 python app.py` |
+
+## Limitations and roadmap
+
+- Single-turn: follow-up questions are not rewritten using chat history yet.
+- The evaluation covers one book; add your own questions for other corpora.
+- Citations are checked for validity, not for whether the cited chunk supports each sentence (an LLM-as-judge faithfulness check is a natural next step).
+- Hybrid BM25 + dense search was evaluated and not needed for this corpus (dense Hit@5 = 1.00). It is worth revisiting for larger, multi-document collections.
 
 ## Author
 
-**Ridham Oza**
+**Ridham Oza** — AI / ML · Generative AI · RAG · LLM applications
 
-AI / ML | Data Science | Generative AI | RAG | LLM Applications
-
-
-
+Licensed under the [MIT License](LICENSE).

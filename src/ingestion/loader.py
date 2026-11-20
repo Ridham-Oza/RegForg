@@ -1,125 +1,70 @@
+"""
+Document loading.
+
+Each loaded page becomes a LangChain `Document` with metadata:
+    source     absolute path of the file
+    file_name  base name of the file
+    page       1-based page number (matches what a PDF viewer shows)
+"""
+
 from pathlib import Path
+from typing import List
 
-from langchain_community.document_loaders import (
-    PyPDFLoader,
-    TextLoader,
-    Docx2txtLoader,
-)
+from langchain_core.documents import Document
+from pypdf import PdfReader
 
-SUPPORTED_EXTENSIONS = {
-    ".pdf",
-    ".txt",
-    ".docx",
-    ".md",
-    ".csv",
-    ".json",
-    ".html",
-    ".xml",
-    ".pptx",
-}
+from config import DOCUMENTS_DIR
 
-DOCUMENT_PATH = Path("Data/documents")
+SUPPORTED_EXTENSIONS = {".pdf", ".txt", ".md"}
 
 
-def load_document(file_path):
-    """
-    Load a document based on its file extension.
-    """
+def load_document(file_path) -> List[Document]:
+    """Load one file into page-level documents."""
 
-    file_path = Path(file_path)
+    path = Path(file_path)
 
-    if not file_path.exists():
-        raise FileNotFoundError(
-            f"File not found: {file_path}"
-        )
+    if not path.is_file():
+        raise FileNotFoundError(f"File not found: {path}")
 
-    if not file_path.is_file():
-        raise ValueError(
-            f"Path is not a file: {file_path}"
-        )
-
-    extension = file_path.suffix.lower()
+    extension = path.suffix.lower()
 
     if extension not in SUPPORTED_EXTENSIONS:
         raise ValueError(
-            f"Unsupported file extension: {extension}"
+            f"Unsupported file type '{extension}'. "
+            f"Supported: {', '.join(sorted(SUPPORTED_EXTENSIONS))}"
         )
+
+    base = {"source": str(path.resolve()), "file_name": path.name}
 
     if extension == ".pdf":
-        loader = PyPDFLoader(str(file_path))
+        reader = PdfReader(str(path))
+        return [
+            Document(
+                page_content=page.extract_text() or "",
+                metadata={**base, "page": number},
+            )
+            for number, page in enumerate(reader.pages, start=1)
+        ]
 
-    elif extension in {".txt", ".md", ".csv", ".json", ".html", ".xml"}:
-        loader = TextLoader(
-            str(file_path),
-            encoding="utf-8",
-        )
+    text = path.read_text(encoding="utf-8", errors="replace")
+    return [Document(page_content=text, metadata={**base, "page": 1})]
 
-    elif extension == ".docx":
-        loader = Docx2txtLoader(str(file_path))
 
-    else:
-        raise ValueError(
-            f"Loader not implemented for: {extension}"
-        )
+def list_documents(directory=DOCUMENTS_DIR) -> List[Path]:
+    """Return every supported file in the documents directory."""
 
-    documents = loader.load()
+    directory = Path(directory)
 
-    for document in documents:
-        document.metadata["source"] = str(file_path)
-        document.metadata["file_name"] = file_path.name
+    if not directory.exists():
+        return []
 
-    return documents
+    return sorted(
+        p for p in directory.iterdir()
+        if p.is_file() and p.suffix.lower() in SUPPORTED_EXTENSIONS
+    )
 
 
 if __name__ == "__main__":
-
-    print("=" * 60)
-    print("PDF LOADER TEST")
-    print("=" * 60)
-
-    pdf_path = (
-        DOCUMENT_PATH / "MachineLearning-3.pdf"
-    )
-
-    print(f"File: {pdf_path}")
-
-    try:
-
-        documents = load_document(pdf_path)
-
-        print(
-            f"Pages loaded: {len(documents)}"
-        )
-
-        if documents:
-
-            print(
-                f"First page characters: "
-                f"{len(documents[0].page_content)}"
-            )
-
-            print(
-                f"Source: "
-                f"{documents[0].metadata.get('source')}"
-            )
-
-            print(
-                f"File name: "
-                f"{documents[0].metadata.get('file_name')}"
-            )
-
-        print("=" * 60)
-        print("✅ PDF LOADING SUCCESSFUL")
-        print("=" * 60)
-
-    except Exception as e:
-
-        print("=" * 60)
-        print("❌ PDF LOADING FAILED")
-        print("=" * 60)
-
-        print(f"Error: {e}")
-
-        raise
-
-
+    for file in list_documents():
+        pages = load_document(file)
+        print(f"{file.name}: {len(pages)} pages")

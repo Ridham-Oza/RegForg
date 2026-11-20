@@ -1,19 +1,26 @@
 # Environment / secrets
 .env
 .env.*
+!.env.example
 
 # Python
 .venv/
 venv/
 __pycache__/
 *.py[cod]
+.pytest_cache/
+
+# Local data (documents are private; the index manifest and logs are per machine)
+Data/documents/*
+!Data/documents/.gitkeep
+Data/index_manifest.json
+logs/
+*.zip
 
 # macOS
 .DS_Store
 
-# Jupyter
-.ipynb_checkpoints/
-
 # IDE
 .vscode/
 .idea/
+.ipynb_checkpoints/

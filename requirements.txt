@@ -1,0 +1,23 @@
+# Orchestration
+langchain-core>=1.0
+langchain-text-splitters>=1.0
+langchain-ollama>=1.0
+
+# Local models (Ollama server must be installed separately)
+ollama>=0.6
+
+# Vector database
+pinecone>=7.0
+
+# Document parsing
+pypdf>=6.0
+
+# Dashboard
+gradio>=6.0
+pandas>=2.0
+
+# Configuration
+python-dotenv>=1.0
+
+# Tests
+pytest>=8.0
