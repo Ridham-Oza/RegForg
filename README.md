@@ -14,7 +14,7 @@ Ask questions about your own PDFs: every answer is grounded in your documents, c
   GitHub uploads it and inserts a link like the one below; replace the placeholder with it.
 -->
 
-https://github.com/user-attachments/assets/REPLACE-WITH-YOUR-VIDEO-ID
+
 
 <!--
   SCREENSHOTS: save PNGs into docs/images/ using these names, and they will appear below.
