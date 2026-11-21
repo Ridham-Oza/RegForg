@@ -59,8 +59,6 @@ Evaluation on *The Hundred-Page Machine Learning Book* (152 pages, 353 chunks): 
 
 Latency was measured on Apple Silicon with 32 GB RAM, with Pinecone in `us-east-1`. Yours will differ.
 
-The biggest wins came from fixing the process, not from swapping models: a relevance gate, turning off Qwen3's hidden "thinking" mode, caching clients instead of rebuilding them on every question, and cleaner chunks. See **[docs/PROJECT_ANALYSIS.md](docs/PROJECT_ANALYSIS.md)** for every gap found, the evidence, and the ideas that were tested and rejected.
-
 ---
 
 ## Architecture
