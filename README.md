@@ -11,10 +11,9 @@ Ask questions about your own PDFs: every answer is grounded in your documents, c
 
 <!--
   VIDEO: drag-and-drop an .mp4 (≤10 MB) into this README while editing it on GitHub.
-  GitHub uploads it and inserts a link like the one below; replace the placeholder with it.
+  GitHub uploads it and inserts a link like https://github.com/user-attachments/assets/<id>.
+  Paste that link on its own line just below this comment.
 -->
-
-https://github.com/user-attachments/assets/REPLACE-WITH-YOUR-VIDEO-ID
 
 <!--
   SCREENSHOTS: save PNGs into docs/images/ using these names, and they will appear below.
@@ -87,7 +86,7 @@ Evaluation on *The Hundred-Page Machine Learning Book* (152 pages, 353 chunks): 
 
 Latency was measured on Apple Silicon with 32 GB RAM, with Pinecone in `us-east-1`. Yours will differ.
 
-The biggest wins came from fixing the process, not from swapping models: a relevance gate, turning off Qwen3's hidden "thinking" mode, caching clients instead of rebuilding them on every question, and cleaner chunks. See **[docs/PROJECT_ANALYSIS.md](docs/PROJECT_ANALYSIS.md)** for every gap found, the evidence, and the ideas that were tested and rejected.
+The biggest wins came from fixing the process, not from swapping models: a relevance gate, turning off Qwen3's hidden "thinking" mode, caching clients instead of rebuilding them on every question, and cleaner chunks.
 
 ---
 
@@ -254,7 +253,6 @@ RegForg/
 │   └── results/latest.json       # last run, shown in the dashboard
 ├── tests/                        # offline unit tests
 └── docs/
-    ├── PROJECT_ANALYSIS.md       # gap analysis and design decisions
     └── images/                   # screenshots for this README
 ```
 
