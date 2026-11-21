@@ -12,7 +12,7 @@ dashboard's Evaluation tab.
 import argparse
 import json
 from datetime import datetime, timezone
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from config import EVAL_DATASET_PATH, EVAL_RESULTS_DIR, LLM_MODEL, EMBEDDING_MODEL, RELEVANCE_THRESHOLD, TOP_K
 from evaluation.metrics import hit_at_k, mean, percentile, recall_at_k, reciprocal_rank
@@ -24,6 +24,21 @@ Progress = Optional[Callable[[float, str], None]]
 
 def load_dataset() -> List[Dict[str, Any]]:
     return json.loads(EVAL_DATASET_PATH.read_text())["items"]
+
+
+def match_keys(item: Dict[str, Any], matches: List[Dict[str, Any]]) -> Tuple[list, list]:
+    """Return (retrieved, relevant) keys to score with the page metrics.
+
+    With several documents indexed, page 59 of one book must not count as a hit
+    for page 59 of another, so items that name a document are matched on
+    (document, page). Items without a document fall back to page numbers only.
+    """
+
+    document = item.get("document")
+    if document:
+        return ([(m["file_name"], m["page"]) for m in matches],
+                [(document, p) for p in item["relevant_pages"]])
+    return [m["page"] for m in matches], list(item["relevant_pages"])
 
 
 def run_evaluation(
@@ -52,9 +67,12 @@ def run_evaluation(
 
         pages = [m["page"] for m in result["matches"]]
         relevant = item["relevant_pages"]
+        document = item.get("document")
+        retrieved_keys, relevant_keys = match_keys(item, result["matches"])
 
         row = {
             "question": question,
+            "document": document,
             "answerable": item["answerable"],
             "relevant_pages": relevant,
             "retrieved_pages": pages,
@@ -67,9 +85,9 @@ def run_evaluation(
 
         if item["answerable"]:
             row.update(
-                hit=hit_at_k(pages, relevant),
-                mrr=reciprocal_rank(pages, relevant),
-                recall=recall_at_k(pages, relevant),
+                hit=hit_at_k(retrieved_keys, relevant_keys),
+                mrr=reciprocal_rank(retrieved_keys, relevant_keys),
+                recall=recall_at_k(retrieved_keys, relevant_keys),
             )
         if generate:
             row["answer"] = result["answer"]
@@ -99,6 +117,17 @@ def run_evaluation(
             total_p95=percentile([r["total_time"] for r in rows], 95),
         )
 
+    by_document: Dict[str, Dict[str, Any]] = {}
+    for doc in sorted({r["document"] for r in answerable if r["document"]}):
+        doc_rows = [r for r in answerable if r["document"] == doc]
+        by_document[doc] = {
+            "n": len(doc_rows),
+            "hit_at_k": mean(r["hit"] for r in doc_rows),
+            "mrr": mean(r["mrr"] for r in doc_rows),
+            "recall_at_k": mean(r["recall"] for r in doc_rows),
+            "false_refusal_rate": mean(float(r["refused"]) for r in doc_rows),
+        }
+
     report = {
         "run_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "config": {
@@ -111,6 +140,7 @@ def run_evaluation(
             "n_unanswerable": len(unanswerable),
         },
         "summary": summary,
+        "by_document": by_document,
         "rows": rows,
     }
 
@@ -144,11 +174,19 @@ def print_report(report: Dict[str, Any]) -> None:
         if key in s and s[key] is not None:
             print(f"  {label:<26} {s[key]:.3f}")
 
+    by_document = report.get("by_document") or {}
+    if by_document:
+        print("\nBy document:")
+        for doc, m in by_document.items():
+            print(f"  {doc:<26} n={m['n']:<3} Hit@K={m['hit_at_k']:.3f}  MRR={m['mrr']:.3f}  "
+                  f"Recall@K={m['recall_at_k']:.3f}  false refusals={m['false_refusal_rate']:.3f}")
+
     misses = [r for r in report["rows"] if r["answerable"] and not r["hit"]]
     if misses:
         print("\nMisses:")
         for r in misses:
-            print(f"  - {r['question']}  expected {r['relevant_pages']} got {r['retrieved_pages']}")
+            print(f"  - [{r.get('document') or '?'}] {r['question']}  "
+                  f"expected {r['relevant_pages']} got {r['retrieved_pages']}")
 
 
 if __name__ == "__main__":
