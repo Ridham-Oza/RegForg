@@ -119,7 +119,7 @@ flowchart LR
 
 ## Dashboard
 
-`python app.py` → <http://127.0.0.1:7860>
+The dashboard runs locally. Start it with `python app.py`, then open `http://127.0.0.1:7860` in your browser. The address only works on your own machine while the app is running.
 
 | Tab | What you can do |
 |---|---|
