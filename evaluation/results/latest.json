@@ -1,26 +1,43 @@
 {
-  "run_at": "2026-11-20T11:34:29+00:00",
+  "run_at": "2026-11-21T09:43:29+00:00",
   "config": {
     "top_k": 5,
     "min_score": 0.5,
     "generate": false,
     "embedding_model": "qwen3-embedding:8b",
     "llm_model": "qwen3:8b",
-    "n_answerable": 33,
+    "n_answerable": 74,
     "n_unanswerable": 8
   },
   "summary": {
     "hit_at_k": 1.0,
-    "mrr": 0.9696969696969697,
-    "recall_at_k": 0.9464646464646465,
+    "mrr": 0.8765765765765765,
+    "recall_at_k": 0.786936936936937,
     "refusal_rate": 1.0,
     "false_refusal_rate": 0.0,
-    "retrieval_p50": 1.2992791670003498,
-    "retrieval_p95": 1.7953732080022746
+    "retrieval_p50": 1.1665332084994589,
+    "retrieval_p95": 4.9068624006002235
+  },
+  "by_document": {
+    "Learning_Python-2.pdf": {
+      "n": 41,
+      "hit_at_k": 1.0,
+      "mrr": 0.8016260162601626,
+      "recall_at_k": 0.6585365853658537,
+      "false_refusal_rate": 0.0
+    },
+    "MachineLearning-3.pdf": {
+      "n": 33,
+      "hit_at_k": 1.0,
+      "mrr": 0.9696969696969697,
+      "recall_at_k": 0.9464646464646465,
+      "false_refusal_rate": 0.0
+    }
   },
   "rows": [
     {
       "question": "What is machine learning?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         7
@@ -34,15 +51,16 @@
       ],
       "top_score": 0.7583,
       "refused": false,
-      "retrieval_time": 1.289074583000911,
+      "retrieval_time": 4.942051709000225,
       "generation_time": null,
-      "total_time": 1.289074583000911,
+      "total_time": 4.942051709000225,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is supervised learning?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         7,
@@ -57,15 +75,16 @@
       ],
       "top_score": 0.7685,
       "refused": false,
-      "retrieval_time": 1.1543865420026123,
+      "retrieval_time": 1.4917220000006637,
       "generation_time": null,
-      "total_time": 1.1543865420026123,
+      "total_time": 1.4917220000006637,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is unsupervised learning?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         8
@@ -79,15 +98,16 @@
       ],
       "top_score": 0.7939,
       "refused": false,
-      "retrieval_time": 1.415526625001803,
+      "retrieval_time": 19.328206999998656,
       "generation_time": null,
-      "total_time": 1.415526625001803,
+      "total_time": 19.328206999998656,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is semi-supervised learning?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         8,
@@ -103,15 +123,16 @@
       ],
       "top_score": 0.825,
       "refused": false,
-      "retrieval_time": 1.1947726670005068,
+      "retrieval_time": 1.773357957999906,
       "generation_time": null,
-      "total_time": 1.1947726670005068,
+      "total_time": 1.773357957999906,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 0.6666666666666666
     },
     {
       "question": "What is reinforcement learning?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         8,
@@ -126,15 +147,16 @@
       ],
       "top_score": 0.732,
       "refused": false,
-      "retrieval_time": 1.131202790998941,
+      "retrieval_time": 3.018419209000058,
       "generation_time": null,
-      "total_time": 1.131202790998941,
+      "total_time": 3.018419209000058,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "How does a support vector machine find its decision boundary?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         9,
@@ -151,15 +173,16 @@
       ],
       "top_score": 0.789,
       "refused": false,
-      "retrieval_time": 1.06184154100265,
+      "retrieval_time": 1.312061332999292,
       "generation_time": null,
-      "total_time": 1.06184154100265,
+      "total_time": 1.312061332999292,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 0.5
     },
     {
       "question": "What is the kernel trick?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         39,
@@ -175,15 +198,16 @@
       ],
       "top_score": 0.8181,
       "refused": false,
-      "retrieval_time": 0.9813257919995522,
+      "retrieval_time": 1.4217305420006596,
       "generation_time": null,
-      "total_time": 0.9813257919995522,
+      "total_time": 1.4217305420006596,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "How is the linear regression problem solved?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         29,
@@ -199,15 +223,16 @@
       ],
       "top_score": 0.7135,
       "refused": false,
-      "retrieval_time": 1.2120024169998942,
+      "retrieval_time": 5.97312620899902,
       "generation_time": null,
-      "total_time": 1.2120024169998942,
+      "total_time": 5.97312620899902,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 0.6666666666666666
     },
     {
       "question": "How does logistic regression work?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         32,
@@ -223,15 +248,16 @@
       ],
       "top_score": 0.7376,
       "refused": false,
-      "retrieval_time": 1.2992791670003498,
+      "retrieval_time": 1.341268999998647,
       "generation_time": null,
-      "total_time": 1.2992791670003498,
+      "total_time": 1.341268999998647,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "How does decision tree learning choose a split?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         35,
@@ -247,15 +273,16 @@
       ],
       "top_score": 0.8008,
       "refused": false,
-      "retrieval_time": 1.2925775420007994,
+      "retrieval_time": 0.918769040999905,
       "generation_time": null,
-      "total_time": 1.2925775420007994,
+      "total_time": 0.918769040999905,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "How does gradient descent work?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         45,
@@ -273,15 +300,16 @@
       ],
       "top_score": 0.7793,
       "refused": false,
-      "retrieval_time": 1.5512100419982744,
+      "retrieval_time": 1.1970279580000351,
       "generation_time": null,
-      "total_time": 1.5512100419982744,
+      "total_time": 1.1970279580000351,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 0.6
     },
     {
       "question": "What is one-hot encoding?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         54
@@ -295,15 +323,16 @@
       ],
       "top_score": 0.7322,
       "refused": false,
-      "retrieval_time": 1.7953732080022746,
+      "retrieval_time": 1.0504206249988783,
       "generation_time": null,
-      "total_time": 1.7953732080022746,
+      "total_time": 1.0504206249988783,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is binning or bucketing of features?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         55
@@ -317,15 +346,16 @@
       ],
       "top_score": 0.8715,
       "refused": false,
-      "retrieval_time": 1.3320982910008752,
+      "retrieval_time": 0.9956965000001219,
       "generation_time": null,
-      "total_time": 1.3320982910008752,
+      "total_time": 0.9956965000001219,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is the difference between normalization and standardization?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         56
@@ -339,15 +369,16 @@
       ],
       "top_score": 0.7982,
       "refused": false,
-      "retrieval_time": 1.3236644579992571,
+      "retrieval_time": 0.9326343339998857,
       "generation_time": null,
-      "total_time": 1.3236644579992571,
+      "total_time": 0.9326343339998857,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "How can missing feature values be handled?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         57
@@ -361,15 +392,16 @@
       ],
       "top_score": 0.8003,
       "refused": false,
-      "retrieval_time": 1.4962574579985812,
+      "retrieval_time": 1.1662402919992019,
       "generation_time": null,
-      "total_time": 1.4962574579985812,
+      "total_time": 1.1662402919992019,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "Why do we split data into training, validation and test sets?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         61
@@ -383,15 +415,16 @@
       ],
       "top_score": 0.794,
       "refused": false,
-      "retrieval_time": 1.1989650840005197,
+      "retrieval_time": 1.307983000000604,
       "generation_time": null,
-      "total_time": 1.1989650840005197,
+      "total_time": 1.307983000000604,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What are underfitting and overfitting?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         61,
@@ -406,15 +439,16 @@
       ],
       "top_score": 0.7926,
       "refused": false,
-      "retrieval_time": 1.0231214170016756,
+      "retrieval_time": 0.8875130839987833,
       "generation_time": null,
-      "total_time": 1.0231214170016756,
+      "total_time": 0.8875130839987833,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "How do L1 and L2 regularization differ?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         63
@@ -428,15 +462,16 @@
       ],
       "top_score": 0.8079,
       "refused": false,
-      "retrieval_time": 0.990421750000678,
+      "retrieval_time": 0.904099084000336,
       "generation_time": null,
-      "total_time": 0.990421750000678,
+      "total_time": 0.904099084000336,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is a confusion matrix?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         65
@@ -450,15 +485,16 @@
       ],
       "top_score": 0.7675,
       "refused": false,
-      "retrieval_time": 1.0195076660020277,
+      "retrieval_time": 1.6708406249999825,
       "generation_time": null,
-      "total_time": 1.0195076660020277,
+      "total_time": 1.6708406249999825,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What does the area under the ROC curve measure?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         67,
@@ -473,15 +509,16 @@
       ],
       "top_score": 0.7689,
       "refused": false,
-      "retrieval_time": 1.2226253330009058,
+      "retrieval_time": 1.3591361670005426,
       "generation_time": null,
-      "total_time": 1.2226253330009058,
+      "total_time": 1.3591361670005426,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "How does cross-validation work?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         71
@@ -495,15 +532,16 @@
       ],
       "top_score": 0.7519,
       "refused": false,
-      "retrieval_time": 1.1735667079992709,
+      "retrieval_time": 1.7609645419997833,
       "generation_time": null,
-      "total_time": 1.1735667079992709,
+      "total_time": 1.7609645419997833,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "How does a convolutional neural network process images?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         78,
@@ -520,15 +558,16 @@
       ],
       "top_score": 0.7652,
       "refused": false,
-      "retrieval_time": 1.3747052079997957,
+      "retrieval_time": 2.213247458001206,
       "generation_time": null,
-      "total_time": 1.3747052079997957,
+      "total_time": 2.213247458001206,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is a recurrent neural network used for?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         82,
@@ -546,15 +585,16 @@
       ],
       "top_score": 0.7534,
       "refused": false,
-      "retrieval_time": 1.3134866250002233,
+      "retrieval_time": 0.8222300409997843,
       "generation_time": null,
-      "total_time": 1.3134866250002233,
+      "total_time": 0.8222300409997843,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 0.8
     },
     {
       "question": "How does a random forest work?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         94
@@ -568,15 +608,16 @@
       ],
       "top_score": 0.8087,
       "refused": false,
-      "retrieval_time": 1.2894230830024753,
+      "retrieval_time": 0.783448916999987,
       "generation_time": null,
-      "total_time": 1.2894230830024753,
+      "total_time": 0.783448916999987,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is gradient boosting?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         95,
@@ -591,15 +632,16 @@
       ],
       "top_score": 0.7933,
       "refused": false,
-      "retrieval_time": 1.1787990829980117,
+      "retrieval_time": 0.927827666999292,
       "generation_time": null,
-      "total_time": 1.1787990829980117,
+      "total_time": 0.927827666999292,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is active learning?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         100
@@ -613,15 +655,16 @@
       ],
       "top_score": 0.7236,
       "refused": false,
-      "retrieval_time": 1.2506249159996514,
+      "retrieval_time": 1.2974092919994291,
       "generation_time": null,
-      "total_time": 1.2506249159996514,
+      "total_time": 1.2974092919994291,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "How can you handle imbalanced datasets?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         109
@@ -635,15 +678,16 @@
       ],
       "top_score": 0.7849,
       "refused": false,
-      "retrieval_time": 1.30917591600155,
+      "retrieval_time": 1.0944801249988814,
       "generation_time": null,
-      "total_time": 1.30917591600155,
+      "total_time": 1.0944801249988814,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is transfer learning?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         114
@@ -657,15 +701,16 @@
       ],
       "top_score": 0.7874,
       "refused": false,
-      "retrieval_time": 1.2663222500013944,
+      "retrieval_time": 1.2943025840013433,
       "generation_time": null,
-      "total_time": 1.2663222500013944,
+      "total_time": 1.2943025840013433,
       "hit": 1.0,
       "mrr": 0.5,
       "recall": 1.0
     },
     {
       "question": "How does the k-means clustering algorithm work?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         122,
@@ -680,15 +725,16 @@
       ],
       "top_score": 0.7989,
       "refused": false,
-      "retrieval_time": 1.5009072920001927,
+      "retrieval_time": 1.297334332999526,
       "generation_time": null,
-      "total_time": 1.5009072920001927,
+      "total_time": 1.297334332999526,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is DBSCAN?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         124
@@ -702,15 +748,16 @@
       ],
       "top_score": 0.7943,
       "refused": false,
-      "retrieval_time": 1.001190167000459,
+      "retrieval_time": 3.9854134590004833,
       "generation_time": null,
-      "total_time": 1.001190167000459,
+      "total_time": 3.9854134590004833,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is principal component analysis?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         131
@@ -724,15 +771,16 @@
       ],
       "top_score": 0.8191,
       "refused": false,
-      "retrieval_time": 1.354244041001948,
+      "retrieval_time": 1.0536632090006606,
       "generation_time": null,
-      "total_time": 1.354244041001948,
+      "total_time": 1.0536632090006606,
       "hit": 1.0,
       "mrr": 0.5,
       "recall": 1.0
     },
     {
       "question": "What is learning to rank?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         138,
@@ -748,15 +796,16 @@
       ],
       "top_score": 0.8843,
       "refused": false,
-      "retrieval_time": 1.3254707499982032,
+      "retrieval_time": 1.2784367090007436,
       "generation_time": null,
-      "total_time": 1.3254707499982032,
+      "total_time": 1.2784367090007436,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
       "question": "What is Bayes' rule?",
+      "document": "MachineLearning-3.pdf",
       "answerable": true,
       "relevant_pages": [
         24
@@ -770,15 +819,1050 @@
       ],
       "top_score": 0.7462,
       "refused": false,
-      "retrieval_time": 1.2059185409998463,
+      "retrieval_time": 1.3667545419993985,
       "generation_time": null,
-      "total_time": 1.2059185409998463,
+      "total_time": 1.3667545419993985,
       "hit": 1.0,
       "mrr": 1.0,
       "recall": 1.0
     },
     {
+      "question": "Why do people use Python?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        54,
+        55
+      ],
+      "retrieved_pages": [
+        8,
+        54,
+        70,
+        59,
+        70
+      ],
+      "top_score": 0.7713,
+      "refused": false,
+      "retrieval_time": 1.928602541998771,
+      "generation_time": null,
+      "total_time": 1.928602541998771,
+      "hit": 1.0,
+      "mrr": 0.5,
+      "recall": 0.5
+    },
+    {
+      "question": "How does Python compile source code to byte code and run it on the Python Virtual Machine?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        77,
+        78,
+        79
+      ],
+      "retrieved_pages": [
+        77,
+        78,
+        85,
+        78,
+        78
+      ],
+      "top_score": 0.8532,
+      "refused": false,
+      "retrieval_time": 2.1689849169997615,
+      "generation_time": null,
+      "total_time": 2.1689849169997615,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "question": "What alternative Python implementations exist, such as Jython and IronPython?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        80,
+        81
+      ],
+      "retrieved_pages": [
+        80,
+        85,
+        81,
+        81,
+        80
+      ],
+      "top_score": 0.8425,
+      "refused": false,
+      "retrieval_time": 1.855970166001498,
+      "generation_time": null,
+      "total_time": 1.855970166001498,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How do you run a Python script file from the system command line?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        93,
+        94,
+        95
+      ],
+      "retrieved_pages": [
+        99,
+        117,
+        95,
+        1148,
+        1148
+      ],
+      "top_score": 0.7668,
+      "refused": false,
+      "retrieval_time": 1.3875630420006928,
+      "generation_time": null,
+      "total_time": 1.3875630420006928,
+      "hit": 1.0,
+      "mrr": 0.3333333333333333,
+      "recall": 0.3333333333333333
+    },
+    {
+      "question": "How do Unix executable scripts use the #! line?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        97
+      ],
+      "retrieved_pages": [
+        97,
+        98,
+        97,
+        122,
+        97
+      ],
+      "top_score": 0.8425,
+      "refused": false,
+      "retrieval_time": 0.7560256670003582,
+      "generation_time": null,
+      "total_time": 0.7560256670003582,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What happens when two variables reference the same mutable object and it is changed in place?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        199,
+        200,
+        201
+      ],
+      "retrieved_pages": [
+        200,
+        340,
+        201,
+        293,
+        342
+      ],
+      "top_score": 0.8181,
+      "refused": false,
+      "retrieval_time": 0.9504662919989642,
+      "generation_time": null,
+      "total_time": 0.9504662919989642,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "question": "What is the difference between the == and is operators?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        202,
+        295,
+        296
+      ],
+      "retrieved_pages": [
+        202,
+        295,
+        296,
+        203,
+        296
+      ],
+      "top_score": 0.8158,
+      "refused": false,
+      "retrieval_time": 6.268957791999128,
+      "generation_time": null,
+      "total_time": 6.268957791999128,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How does string formatting with the % operator work?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        230,
+        231,
+        232,
+        233
+      ],
+      "retrieved_pages": [
+        231,
+        231,
+        230,
+        239,
+        238
+      ],
+      "top_score": 0.8157,
+      "refused": false,
+      "retrieval_time": 1.5612840419998975,
+      "generation_time": null,
+      "total_time": 1.5612840419998975,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.5
+    },
+    {
+      "question": "How does the string format method work?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        234,
+        235,
+        236
+      ],
+      "retrieved_pages": [
+        223,
+        238,
+        231,
+        238,
+        235
+      ],
+      "top_score": 0.7033,
+      "refused": false,
+      "retrieval_time": 1.2116185830000177,
+      "generation_time": null,
+      "total_time": 1.2116185830000177,
+      "hit": 1.0,
+      "mrr": 0.2,
+      "recall": 0.3333333333333333
+    },
+    {
+      "question": "How do you use dictionary methods such as keys, values, items and get?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        141,
+        260,
+        261,
+        262
+      ],
+      "retrieved_pages": [
+        262,
+        270,
+        264,
+        260,
+        259
+      ],
+      "top_score": 0.8159,
+      "refused": false,
+      "retrieval_time": 1.209843416001604,
+      "generation_time": null,
+      "total_time": 1.209843416001604,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.5
+    },
+    {
+      "question": "How are tuples different from lists, and why use tuples?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        147,
+        148,
+        276,
+        279,
+        280
+      ],
+      "retrieved_pages": [
+        280,
+        148,
+        277,
+        276,
+        278
+      ],
+      "top_score": 0.8165,
+      "refused": false,
+      "retrieval_time": 1.3618151249993389,
+      "generation_time": null,
+      "total_time": 1.3618151249993389,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6
+    },
+    {
+      "question": "How do you open, read and write files in Python?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        148,
+        281,
+        282,
+        283
+      ],
+      "retrieved_pages": [
+        281,
+        149,
+        1159,
+        308,
+        283
+      ],
+      "top_score": 0.807,
+      "refused": false,
+      "retrieval_time": 1.6743018750003102,
+      "generation_time": null,
+      "total_time": 1.6743018750003102,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.5
+    },
+    {
+      "question": "How do you store native Python objects in a file with pickle?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        287
+      ],
+      "retrieved_pages": [
+        796,
+        721,
+        287,
+        287,
+        721
+      ],
+      "top_score": 0.7864,
+      "refused": false,
+      "retrieval_time": 4.238265541000146,
+      "generation_time": null,
+      "total_time": 4.238265541000146,
+      "hit": 1.0,
+      "mrr": 0.3333333333333333,
+      "recall": 1.0
+    },
+    {
+      "question": "What is the difference between references and copies of objects?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        292,
+        293,
+        294
+      ],
+      "retrieved_pages": [
+        294,
+        302,
+        295,
+        293,
+        293
+      ],
+      "top_score": 0.7373,
+      "refused": false,
+      "retrieval_time": 1.4923747909997473,
+      "generation_time": null,
+      "total_time": 1.4923747909997473,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "question": "How does Python use indentation to delimit blocks of code?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        366,
+        367
+      ],
+      "retrieved_pages": [
+        366,
+        317,
+        317,
+        367,
+        367
+      ],
+      "top_score": 0.805,
+      "refused": false,
+      "retrieval_time": 0.8526069580002513,
+      "generation_time": null,
+      "total_time": 0.8526069580002513,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How does the if/else ternary expression work?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        372,
+        373
+      ],
+      "retrieved_pages": [
+        373,
+        375,
+        372,
+        373,
+        363
+      ],
+      "top_score": 0.7051,
+      "refused": false,
+      "retrieval_time": 1.0775972080009524,
+      "generation_time": null,
+      "total_time": 1.0775972080009524,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What do break, continue, pass and the loop else clause do?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        380,
+        381,
+        382,
+        383
+      ],
+      "retrieved_pages": [
+        380,
+        380,
+        386,
+        15,
+        401
+      ],
+      "top_score": 0.8617,
+      "refused": false,
+      "retrieval_time": 2.062904999998864,
+      "generation_time": null,
+      "total_time": 2.062904999998864,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.25
+    },
+    {
+      "question": "What is the iteration protocol, and how do iter and next work?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        403,
+        404,
+        405,
+        406
+      ],
+      "retrieved_pages": [
+        409,
+        762,
+        405,
+        406,
+        544
+      ],
+      "top_score": 0.7934,
+      "refused": false,
+      "retrieval_time": 1.162585667001622,
+      "generation_time": null,
+      "total_time": 1.162585667001622,
+      "hit": 1.0,
+      "mrr": 0.3333333333333333,
+      "recall": 0.5
+    },
+    {
+      "question": "How do list comprehensions work?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        409,
+        410,
+        411,
+        536,
+        537
+      ],
+      "retrieved_pages": [
+        539,
+        539,
+        410,
+        140,
+        409
+      ],
+      "top_score": 0.8037,
+      "refused": false,
+      "retrieval_time": 0.8850742909999099,
+      "generation_time": null,
+      "total_time": 0.8850742909999099,
+      "hit": 1.0,
+      "mrr": 0.3333333333333333,
+      "recall": 0.4
+    },
+    {
+      "question": "What is the LEGB rule for name resolution?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        459,
+        460,
+        461,
+        462
+      ],
+      "retrieved_pages": [
+        461,
+        461,
+        17,
+        461,
+        603
+      ],
+      "top_score": 0.8266,
+      "refused": false,
+      "retrieval_time": 1.7268286250000529,
+      "generation_time": null,
+      "total_time": 1.7268286250000529,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.25
+    },
+    {
+      "question": "What does the global statement do?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        465,
+        466
+      ],
+      "retrieved_pages": [
+        465,
+        480,
+        469,
+        466,
+        465
+      ],
+      "top_score": 0.7553,
+      "refused": false,
+      "retrieval_time": 1.0601934999995137,
+      "generation_time": null,
+      "total_time": 1.0601934999995137,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What does the nonlocal statement do?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        476,
+        477,
+        478
+      ],
+      "retrieved_pages": [
+        476,
+        479,
+        482,
+        480,
+        477
+      ],
+      "top_score": 0.7221,
+      "refused": false,
+      "retrieval_time": 0.9952675830008957,
+      "generation_time": null,
+      "total_time": 0.9952675830008957,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "question": "How do keyword arguments, defaults, *args and **kwargs work in function calls?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        491,
+        492,
+        493,
+        494,
+        495
+      ],
+      "retrieved_pages": [
+        498,
+        497,
+        493,
+        493,
+        492
+      ],
+      "top_score": 0.849,
+      "refused": false,
+      "retrieval_time": 1.2676459590002196,
+      "generation_time": null,
+      "total_time": 1.2676459590002196,
+      "hit": 1.0,
+      "mrr": 0.3333333333333333,
+      "recall": 0.4
+    },
+    {
+      "question": "How do recursive functions work in Python?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        516,
+        517,
+        518
+      ],
+      "retrieved_pages": [
+        516,
+        517,
+        516,
+        518,
+        18
+      ],
+      "top_score": 0.7639,
+      "refused": false,
+      "retrieval_time": 1.1313933330002328,
+      "generation_time": null,
+      "total_time": 1.1313933330002328,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is a lambda expression and when should you use it?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        525,
+        526,
+        527
+      ],
+      "retrieved_pages": [
+        525,
+        529,
+        529,
+        527,
+        531
+      ],
+      "top_score": 0.7416,
+      "refused": false,
+      "retrieval_time": 1.0971852500006207,
+      "generation_time": null,
+      "total_time": 1.0971852500006207,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "question": "How do generator functions and the yield statement work?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        543,
+        544,
+        545,
+        546,
+        547
+      ],
+      "retrieved_pages": [
+        543,
+        544,
+        544,
+        545,
+        545
+      ],
+      "top_score": 0.7757,
+      "refused": false,
+      "retrieval_time": 1.0062946250000095,
+      "generation_time": null,
+      "total_time": 1.0062946250000095,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6
+    },
+    {
+      "question": "What steps does Python take when it imports a module?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        584,
+        585
+      ],
+      "retrieved_pages": [
+        585,
+        584,
+        586,
+        586,
+        602
+      ],
+      "top_score": 0.8247,
+      "refused": false,
+      "retrieval_time": 2.1983845419999852,
+      "generation_time": null,
+      "total_time": 2.1983845419999852,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How does the module search path and sys.path work?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        586,
+        587,
+        588,
+        589
+      ],
+      "retrieved_pages": [
+        590,
+        589,
+        641,
+        108,
+        587
+      ],
+      "top_score": 0.8112,
+      "refused": false,
+      "retrieval_time": 0.9194493340000918,
+      "generation_time": null,
+      "total_time": 0.9194493340000918,
+      "hit": 1.0,
+      "mrr": 0.5,
+      "recall": 0.5
+    },
+    {
+      "question": "How do package relative imports work in Python 3.0?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        620,
+        621,
+        622,
+        623
+      ],
+      "retrieved_pages": [
+        20,
+        620,
+        626,
+        621,
+        621
+      ],
+      "top_score": 0.8214,
+      "refused": false,
+      "retrieval_time": 0.9807981670001027,
+      "generation_time": null,
+      "total_time": 0.9807981670001027,
+      "hit": 1.0,
+      "mrr": 0.5,
+      "recall": 0.5
+    },
+    {
+      "question": "What is the purpose of checking if __name__ == '__main__'?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        636,
+        637
+      ],
+      "retrieved_pages": [
+        698,
+        636,
+        638,
+        637,
+        636
+      ],
+      "top_score": 0.7623,
+      "refused": false,
+      "retrieval_time": 2.2955526249988907,
+      "generation_time": null,
+      "total_time": 2.2955526249988907,
+      "hit": 1.0,
+      "mrr": 0.5,
+      "recall": 1.0
+    },
+    {
+      "question": "What is the difference between __repr__ and __str__?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        772,
+        773
+      ],
+      "retrieved_pages": [
+        772,
+        773,
+        772,
+        772,
+        773
+      ],
+      "top_score": 0.8301,
+      "refused": false,
+      "retrieval_time": 1.0417827499986743,
+      "generation_time": null,
+      "total_time": 1.0417827499986743,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How do pseudoprivate class attributes and name mangling work?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        798,
+        799,
+        800
+      ],
+      "retrieved_pages": [
+        799,
+        1080,
+        798,
+        799,
+        798
+      ],
+      "top_score": 0.8676,
+      "refused": false,
+      "retrieval_time": 0.7669352909997542,
+      "generation_time": null,
+      "total_time": 0.7669352909997542,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.6666666666666666
+    },
+    {
+      "question": "How does diamond inheritance change with new-style classes?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        834,
+        835,
+        836
+      ],
+      "retrieved_pages": [
+        834,
+        838,
+        835,
+        836,
+        829
+      ],
+      "top_score": 0.8226,
+      "refused": false,
+      "retrieval_time": 0.8425916249998409,
+      "generation_time": null,
+      "total_time": 0.8425916249998409,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "What is the difference between static methods and class methods?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        846,
+        847,
+        848,
+        850
+      ],
+      "retrieved_pages": [
+        846,
+        846,
+        850,
+        850,
+        851
+      ],
+      "top_score": 0.7834,
+      "refused": false,
+      "retrieval_time": 8.523944540998855,
+      "generation_time": null,
+      "total_time": 8.523944540998855,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.5
+    },
+    {
+      "question": "What does the try/finally statement do?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        893,
+        894
+      ],
+      "retrieved_pages": [
+        893,
+        894,
+        893,
+        882,
+        885
+      ],
+      "top_score": 0.8101,
+      "refused": false,
+      "retrieval_time": 1.0411201670012815,
+      "generation_time": null,
+      "total_time": 1.0411201670012815,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 1.0
+    },
+    {
+      "question": "How do with/as context managers work?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        902,
+        903,
+        904,
+        905
+      ],
+      "retrieved_pages": [
+        903,
+        904,
+        903,
+        906,
+        905
+      ],
+      "top_score": 0.8216,
+      "refused": false,
+      "retrieval_time": 1.0256907919992955,
+      "generation_time": null,
+      "total_time": 1.0256907919992955,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.75
+    },
+    {
+      "question": "How do properties manage attribute access?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        994,
+        995,
+        996,
+        997
+      ],
+      "retrieved_pages": [
+        994,
+        993,
+        28,
+        1024,
+        1104
+      ],
+      "top_score": 0.7797,
+      "refused": false,
+      "retrieval_time": 1.1849629999996978,
+      "generation_time": null,
+      "total_time": 1.1849629999996978,
+      "hit": 1.0,
+      "mrr": 1.0,
+      "recall": 0.25
+    },
+    {
+      "question": "What are descriptors and how do __get__ and __set__ work?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        998,
+        999,
+        1000,
+        1001
+      ],
+      "retrieved_pages": [
+        845,
+        999,
+        994,
+        1000,
+        1031
+      ],
+      "top_score": 0.7899,
+      "refused": false,
+      "retrieval_time": 0.8784172079995187,
+      "generation_time": null,
+      "total_time": 0.8784172079995187,
+      "hit": 1.0,
+      "mrr": 0.5,
+      "recall": 0.5
+    },
+    {
+      "question": "What is a decorator in Python?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        855,
+        1034,
+        1035,
+        1036
+      ],
+      "retrieved_pages": [
+        1037,
+        1036,
+        1044,
+        1034,
+        1071
+      ],
+      "top_score": 0.7887,
+      "refused": false,
+      "retrieval_time": 0.9123543330006214,
+      "generation_time": null,
+      "total_time": 0.9123543330006214,
+      "hit": 1.0,
+      "mrr": 0.5,
+      "recall": 0.5
+    },
+    {
+      "question": "What is a metaclass?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        858,
+        1103,
+        1109,
+        1112
+      ],
+      "retrieved_pages": [
+        1136,
+        1103,
+        1115,
+        1119,
+        1112
+      ],
+      "top_score": 0.7887,
+      "refused": false,
+      "retrieval_time": 0.8295426670010784,
+      "generation_time": null,
+      "total_time": 0.8295426670010784,
+      "hit": 1.0,
+      "mrr": 0.5,
+      "recall": 0.5
+    },
+    {
+      "question": "How did strings change in Python 3.0, and what is the difference between str and bytes?",
+      "document": "Learning_Python-2.pdf",
+      "answerable": true,
+      "relevant_pages": [
+        946,
+        947,
+        948
+      ],
+      "retrieved_pages": [
+        988,
+        947,
+        954,
+        951,
+        950
+      ],
+      "top_score": 0.8454,
+      "refused": false,
+      "retrieval_time": 0.9323405840004853,
+      "generation_time": null,
+      "total_time": 0.9323405840004853,
+      "hit": 1.0,
+      "mrr": 0.5,
+      "recall": 0.3333333333333333
+    },
+    {
       "question": "What is the capital of France?",
+      "document": null,
       "answerable": false,
       "relevant_pages": [],
       "retrieved_pages": [
@@ -790,12 +1874,13 @@
       ],
       "top_score": 0.2491,
       "refused": true,
-      "retrieval_time": 1.5183492090000072,
+      "retrieval_time": 0.8414466669983085,
       "generation_time": null,
-      "total_time": 1.5183492090000072
+      "total_time": 0.8414466669983085
     },
     {
       "question": "How do I bake sourdough bread?",
+      "document": null,
       "answerable": false,
       "relevant_pages": [],
       "retrieved_pages": [
@@ -807,12 +1892,13 @@
       ],
       "top_score": 0.3778,
       "refused": true,
-      "retrieval_time": 1.6551169590020436,
+      "retrieval_time": 0.949976208001317,
       "generation_time": null,
-      "total_time": 1.6551169590020436
+      "total_time": 0.949976208001317
     },
     {
       "question": "Who won the 2018 FIFA World Cup?",
+      "document": null,
       "answerable": false,
       "relevant_pages": [],
       "retrieved_pages": [
@@ -824,12 +1910,13 @@
       ],
       "top_score": 0.2132,
       "refused": true,
-      "retrieval_time": 1.5765650409994123,
+      "retrieval_time": 1.1668261249997158,
       "generation_time": null,
-      "total_time": 1.5765650409994123
+      "total_time": 1.1668261249997158
     },
     {
       "question": "Who is the current CEO of Microsoft?",
+      "document": null,
       "answerable": false,
       "relevant_pages": [],
       "retrieved_pages": [
@@ -841,12 +1928,13 @@
       ],
       "top_score": 0.2277,
       "refused": true,
-      "retrieval_time": 1.7663245830008236,
+      "retrieval_time": 1.046332624999195,
       "generation_time": null,
-      "total_time": 1.7663245830008236
+      "total_time": 1.046332624999195
     },
     {
       "question": "What is the boiling point of water in Kelvin?",
+      "document": null,
       "answerable": false,
       "relevant_pages": [],
       "retrieved_pages": [
@@ -858,12 +1946,13 @@
       ],
       "top_score": 0.284,
       "refused": true,
-      "retrieval_time": 1.4979436670000723,
+      "retrieval_time": 0.8064414170003147,
       "generation_time": null,
-      "total_time": 1.4979436670000723
+      "total_time": 0.8064414170003147
     },
     {
       "question": "How do I configure a Kubernetes ingress controller?",
+      "document": null,
       "answerable": false,
       "relevant_pages": [],
       "retrieved_pages": [
@@ -875,12 +1964,13 @@
       ],
       "top_score": 0.4393,
       "refused": true,
-      "retrieval_time": 3.4684724580001784,
+      "retrieval_time": 0.8251319579994743,
       "generation_time": null,
-      "total_time": 3.4684724580001784
+      "total_time": 0.8251319579994743
     },
     {
       "question": "What is today's stock price of Apple?",
+      "document": null,
       "answerable": false,
       "relevant_pages": [],
       "retrieved_pages": [
@@ -892,12 +1982,13 @@
       ],
       "top_score": 0.3229,
       "refused": true,
-      "retrieval_time": 3.043464500002301,
+      "retrieval_time": 0.9031841249998251,
       "generation_time": null,
-      "total_time": 3.043464500002301
+      "total_time": 0.9031841249998251
     },
     {
       "question": "What is the GDP of India?",
+      "document": null,
       "answerable": false,
       "relevant_pages": [],
       "retrieved_pages": [
@@ -909,9 +2000,9 @@
       ],
       "top_score": 0.2624,
       "refused": true,
-      "retrieval_time": 1.6566434999986086,
+      "retrieval_time": 1.0712382500005333,
       "generation_time": null,
-      "total_time": 1.6566434999986086
+      "total_time": 1.0712382500005333
     }
   ]
 }

@@ -36,10 +36,38 @@ https://github.com/user-attachments/assets/REPLACE-WITH-YOUR-VIDEO-ID
 - **Cites its sources.** Answers reference `[1]`, `[2]`…, and each source card links to the exact PDF page.
 - **Refuses what it can't answer.** A calibrated relevance gate refuses off-topic questions in under a second without calling the LLM.
 - **Streams answers.** Tokens arrive as they are generated, and each stage's latency is shown per answer.
-- **Measured quality.** A 41-question evaluation set (in-scope and out-of-scope) runs from the CLI or the dashboard.
+- **Measured quality.** An 82-question evaluation set covering two books (in-scope and out-of-scope) runs from the CLI or the dashboard.
 - **Idempotent indexing.** Deterministic chunk IDs, so re-running never duplicates vectors and unchanged files are skipped.
 
+## Indexed corpus
+
+| Document | Pages | Chunks | Indexing time |
+|---|---|---|---|
+| *The Hundred-Page Machine Learning Book* (`MachineLearning-3.pdf`) | 152 | 353 | ≈ 5 min |
+| *Learning Python* (`Learning_Python-2.pdf`) | 1,213 | 3,423 | ≈ 81 min |
+| **Total** | **1,365** | **3,776 vectors** | |
+
+Chunk counts are taken from `Data/index_manifest.json` and match the Pinecone index. Indexing time is for `qwen3-embedding:8b` on Apple Silicon.
+
 ## Results
+
+### Both books (current index, 3,776 vectors)
+
+82 questions: 74 in-scope questions (33 on the ML book, 41 on *Learning Python*), each labelled with its book and the pages that answer it, plus 8 out-of-scope questions. A retrieved chunk only counts as a hit if both the **book and the page** match. Retrieval only, `top_k=5`, threshold `0.50`.
+
+| Metric | ML book (n=33) | Learning Python (n=41) | **All (n=74)** |
+|---|---|---|---|
+| Hit@5 | 1.00 | 1.00 | **1.00** |
+| MRR | 0.97 | 0.80 | **0.88** |
+| Recall@5 | 0.95 | 0.66 | **0.79** |
+| In-scope questions wrongly refused | 0 % | 0 % | **0 %** |
+| Out-of-scope questions refused | | | **100 % (8/8)** |
+
+- **The threshold still has margin.** The lowest-scoring in-scope question scored 0.70, and the highest-scoring out-of-scope question scored 0.44. The 0.50 threshold was picked using the ML book, so the Python book is the first test it wasn't tuned on.
+- **Learning Python has lower Recall@5 than the ML book.** That's expected. The book is 8× longer, and many topics run over 4–5 pages, but only 5 chunks are retrieved, so recall can't reach 1.0. Every question still has a correct page in the top 5.
+- **Labels come from the book's structure, not the retriever.** The Learning Python pages come from the PDF's bookmark outline (section start → next section). They were checked against the indexed page numbers before running the evaluation.
+
+### v1 → v2, ML book only
 
 Evaluation on *The Hundred-Page Machine Learning Book* (152 pages, 353 chunks): 33 in-scope questions labelled with the pages that answer them, plus 8 out-of-scope questions.
 
@@ -55,7 +83,7 @@ Evaluation on *The Hundred-Page Machine Learning Book* (152 pages, 353 chunks): 
 | Generation latency, same answer | ≈ 15 s | **≈ 2.3 s** |
 | End-to-end, full cited answer, p50 | — | 9–11 s (first token ≈ 3 s, streamed) |
 
-¹ v1's own 4-question set reported 1.00 on everything. These v1 numbers are from re-running v1's index on the new 41-question set.
+¹ v1's own 4-question set reported 1.00 on everything. These v1 numbers are from re-running v1's index on the 41-question ML set.
 
 Latency was measured on Apple Silicon with 32 GB RAM, with Pinecone in `us-east-1`. Yours will differ.
 
@@ -162,7 +190,7 @@ python app.py
 | `python -m src.retrieval.retriever` | Retrieval smoke test |
 | `python -m src.pipeline.rag_pipeline "your question"` | Ask a question in the terminal (streams) |
 | `python -m evaluation.evaluate [--generate] [--top-k 5] [--threshold 0.5]` | Run the evaluation |
-| `pytest` | Run the 14 offline unit tests (no Ollama or Pinecone needed) |
+| `pytest` | Run the 16 offline unit tests (no Ollama or Pinecone needed) |
 
 ## Evaluation
 
@@ -220,7 +248,7 @@ RegForg/
 │   ├── dashboard/app.py          # Gradio dashboard (5 tabs)
 │   └── utils/                    # logger, query log
 ├── evaluation/
-│   ├── dataset.json              # 41 labelled questions
+│   ├── dataset.json              # 82 labelled questions, two books
 │   ├── metrics.py
 │   ├── evaluate.py
 │   └── results/latest.json       # last run, shown in the dashboard
@@ -245,7 +273,8 @@ RegForg/
 ## Limitations and roadmap
 
 - Single-turn: follow-up questions are not rewritten using chat history yet.
-- The evaluation covers one book; add your own questions for other corpora.
+- The two-book results are retrieval-only. Citation rate and generation latency (`--generate`) have only been measured on the ML book.
+- The 0.50 threshold was tuned on the same ML questions it is scored on. The Learning Python questions are the first held-out check, and a dedicated held-out split is still to do.
 - Citations are checked for validity, not for whether the cited chunk supports each sentence (an LLM-as-judge faithfulness check is a natural next step).
 - Hybrid BM25 + dense search was evaluated and not needed for this corpus (dense Hit@5 = 1.00). It is worth revisiting for larger, multi-document collections.
 
